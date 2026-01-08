@@ -19,6 +19,9 @@ const navItems = ref<NavItem[]>([
 
 const handleNavClick = (name: string) => {
   console.log(`Navigated to: ${name}`);
+  if (name === '皮影工坊') {
+    router.push('/workshop');
+  }
 };
 </script>
 
