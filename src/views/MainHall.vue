@@ -8,12 +8,11 @@ interface NavItem {
   name: string;
   label: string;
   color: string;
-  isMain?: boolean;
 }
 
 const navItems = ref<NavItem[]>([
   { name: '皮影工坊', label: '工坊', color: 'bg-amber-600' },
-  { name: '指尖剧场', label: '入戏', color: 'bg-red-700', isMain: true },
+  { name: '指尖剧场', label: '入戏', color: 'bg-red-700' },
   { name: '非遗科普', label: '科普', color: 'bg-emerald-600' },
   { name: '对战模式', label: '对战', color: 'bg-blue-600' }, // Test item
 ]);
@@ -49,36 +48,20 @@ const handleNavClick = (name: string) => {
       class="flex-none h-[100px] bg-stone-800 grid relative z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]"
       :style="{ gridTemplateColumns: `repeat(${navItems.length}, minmax(0, 1fr))` }"
     >
-      <template v-for="item in navItems" :key="item.name">
-        
-        <!-- Main Button (Floating) -->
-        <div v-if="item.isMain" class="relative flex justify-center h-full">
-          <button 
-            class="absolute -top-6 w-20 h-20 rounded-full flex flex-col items-center justify-center shadow-xl border-4 border-stone-800 active:scale-95 transition-transform"
-            :class="item.color"
-            @click="handleNavClick(item.name)"
-          >
-            <span class="text-2xl font-bold mb-1">🎭</span>
-            <span class="text-xs font-bold text-white">{{ item.label }}</span>
-          </button>
-        </div>
-
-        <!-- Normal Button -->
-        <button 
-          v-else
-          class="flex flex-col items-center justify-center gap-2 active:opacity-80 transition-opacity"
-          @click="handleNavClick(item.name)"
+      <button 
+        v-for="item in navItems" 
+        :key="item.name"
+        class="w-full h-full flex flex-col items-center justify-center gap-2 active:opacity-80 transition-opacity"
+        @click="handleNavClick(item.name)"
+      >
+        <div 
+          class="w-12 h-10 rounded flex items-center justify-center shadow-sm"
+          :class="item.color"
         >
-          <div 
-            class="w-12 h-10 rounded flex items-center justify-center shadow-sm"
-            :class="item.color"
-          >
-            <span class="text-[10px] font-bold">{{ item.label }}</span>
-          </div>
-          <span class="text-sm font-medium text-stone-300">{{ item.name }}</span>
-        </button>
-
-      </template>
+          <span class="text-[10px] font-bold">{{ item.label }}</span>
+        </div>
+        <span class="text-sm font-medium text-stone-300">{{ item.name }}</span>
+      </button>
     </div>
   </div>
 </template>
